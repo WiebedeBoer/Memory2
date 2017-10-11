@@ -74,30 +74,32 @@ namespace Memory2
                     Box.BackColor = System.Drawing.SystemColors.ActiveCaption;
                     string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0" + ".png";
                     Box.Image = System.Drawing.Image.FromFile(imgpath);
+                    //locatie van box
                     Box.Location = new System.Drawing.Point(10 + cColumn * 210, cRow * 210);
-
-
+                    
                     //randomiser
                     int tmp = shuf[i];
                     int r = rnd.Next(i, shuf.Length);
                     shuf[i] = shuf[r];
                     shuf[r] = tmp;
 
-                    Box.Name = "" + shuf[r];
+                    Box.Name = "" + shuf[i];
                     int halfway = (Rows * Columns) / 2;
-                    if (shuf[r] > halfway)
+                    if (shuf[i] > halfway)
                     {
-                        Box.Tag = shuf[r] - halfway;
+                        Box.Tag = shuf[i] - halfway;
                     }
                     else
                     {
-                        Box.Tag = shuf[r];
+                        Box.Tag = shuf[i];
                     }
-
-                    Box.Size = new System.Drawing.Size(128, 128);
+                    //box  size
+                    Box.Size = new System.Drawing.Size(200, 200);
                     Plaatjes[i] = Box;
+                    //increment voor random
                     i++;
                     this.Controls.Add(Box);
+                    //clicker
                     Box.Click += Box_Click;
                     ((System.ComponentModel.ISupportInitialize)(Box)).EndInit();
                     this.ResumeLayout(false);
