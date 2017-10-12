@@ -17,6 +17,7 @@ namespace Memory2
         int Columns = 4;
         PictureBox[] Plaatjes;
         int[] TagArray;
+        int[] DraaiArray;
 
 
         //Label firstClicked = null;
@@ -58,6 +59,7 @@ namespace Memory2
 
             //images array size
             int[] ImagesArray = new int[Rows * Columns];
+            int[] DraaiArray = new int[Rows * Columns];
 
             //tags invullen array, 0 = niet gedraaid, 1 = gedraaid, 2 = geraden
             TagArray = new int[Rows * Columns];
@@ -91,10 +93,12 @@ namespace Memory2
                     if (shuf[i] > halfway)
                     {
                         Box.Tag = shuf[i] - halfway;
+                        DraaiArray[i] = shuf[i] - halfway;
                     }
                     else
                     {
                         Box.Tag = shuf[i];
+                        DraaiArray[i] = shuf[i];
                     }
                     //box  size
                     Box.Size = new System.Drawing.Size(200, 200);
@@ -150,9 +154,9 @@ namespace Memory2
                 //als er al wel een kaart is omgedraaid in een beurt, oftewel tweede zet in beurt van een speler
                 if (FirstClicked > 0)
                 {
-                    /*
-                    //als het matched
-                    if (Boxje.Tag[FirstClicked] == Boxje.Tag[ClickedNum])
+                    
+                    //als het wel matched
+                    if (DraaiArray[FirstClicked] == DraaiArray[ClickedNum])
                     {
                         FirstClicked = FirstClicked;
                         SecondClicked = ClickedNum;
@@ -160,7 +164,27 @@ namespace Memory2
                         TagArray[SecondClicked] = 2;
                         TagArray[FirstClicked] = 2;
                     }
-                    */
+                    //als het niet matched
+                    else
+                    {
+                        //tags weer terug naar niet gedraaid
+                        TagArray[SecondClicked] = 0;
+                        TagArray[FirstClicked] = 0;
+                        //images terug ddraaien na delay
+
+                        /*
+                                 //Delay functie, voer milliseconden in bij gebruik van de method.
+                        public void Delay(int getal)
+                         {
+                        Thread.Sleep(getal);
+                            }
+
+                        //Als je dit wilt gebruiken, roep Delay(getal), met daarbij je getal in milliseconden. 1000 ms is 1 seconde.
+                         */
+
+
+                    }
+
 
                 }
                 //als er nog geen kaart is omgedraaid, oftewel eerste zet in beurt van een speler
