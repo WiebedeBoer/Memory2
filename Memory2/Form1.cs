@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -59,6 +60,7 @@ namespace Memory2
 
             //images array size
             int[] ImagesArray = new int[Rows * Columns];
+            //draai array size
             int[] DraaiArray = new int[Rows * Columns];
 
             //tags invullen array, 0 = niet gedraaid, 1 = gedraaid, 2 = geraden
@@ -170,7 +172,22 @@ namespace Memory2
                         //tags weer terug naar niet gedraaid
                         TagArray[SecondClicked] = 0;
                         TagArray[FirstClicked] = 0;
-                        //images terug ddraaien na delay
+                        //images terug draaien na delay
+
+                        //Delay functie, in milliseconden, 1000 milli = 1 sec.
+                        //int DelayMilli = 2000;
+                        //Thread.Sleep(DelayMilli);
+
+                        /*
+                         //draai 2 kaartjes terug
+                         string imgbackpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0.png";
+                        //aangeklikt kaartje (dus tweede zet)
+                        Boxje.Image = System.Drawing.Image.FromFile(imgbackpath);
+                        //kaartje eerst zet
+                         PictureBox[FirstClicked] = System.Drawing.Image.FromFile(imgbackpath);
+                         
+                         * /
+                        
 
                         /*
                                  //Delay functie, voer milliseconden in bij gebruik van de method.
@@ -178,8 +195,6 @@ namespace Memory2
                          {
                         Thread.Sleep(getal);
                             }
-
-                        //Als je dit wilt gebruiken, roep Delay(getal), met daarbij je getal in milliseconden. 1000 ms is 1 seconde.
                          */
 
 
