@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,10 +20,17 @@ namespace Memory2
         public Form1()
         {
             InitializeComponent();
-            randonAanmaken();
+            randomAanmaken();
+            /*
+            //first clicked points to first label control
+             firstClicked = Nothing;
+            //second clicked points to the second label control 
+            Private secondClicked = Nothing;
+            */
         }
 
-        private void randonAanmaken()
+        //Genereert kaarten in random volgorde
+        private void randomAanmaken()
         {
 
             Random Randomizer = new Random();
@@ -37,8 +45,16 @@ namespace Memory2
                     PictureBox Box = new PictureBox();
                     this.SuspendLayout();
                     Box.BackColor = System.Drawing.SystemColors.ActiveCaption;
+                    string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\thema\adventuretime\kaartje0" + ".png";
+                    Box.Image = System.Drawing.Image.FromFile(imgpath);
                     Box.Location = new System.Drawing.Point(10 + cColumn * 210, cRow * 210);
-                    Box.Name = "pictureBox" + i;
+                    Box.Name = "" + i;
+                    if (i >8)
+                    {
+                        Box.Tag = i - 8;
+                    }
+                    else {
+                        Box.Tag = i; }
                     Box.Size = new System.Drawing.Size(128, 128);
                     Plaatjes[i] = Box;
                     i++;
@@ -57,17 +73,39 @@ private void InitializeComponent()
 }
 */
 
-        private void Box_Click(object sender, EventArgs e)
+        public void Box_Click(object sender, EventArgs e)
         {
             PictureBox Boxje = (PictureBox)sender;
-            Boxje.BackColor = Color.Black;
-            string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje1" + ".png";
+            timer1.Start();
+            string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje" + Boxje.Name + ".png";
             Boxje.Image = System.Drawing.Image.FromFile(imgpath);
+
+            if (Boxje.Tag != null)
+            {
+                if (Boxje.BackColor ==Color.Black)
+
+                return;
+              
+                Boxje.BackColor = Color.Black;
+            }
+
+
+            /*
+            secondClicked = Boxje.Tag;
+            secondClicked.ForeColor = Color.Black;
+            if (firstClicked == secondClicked)
+            {
+                firstClicked = null;
+                secondClicked = null;
+                return;
+            }
+            */
 
         }
         private int IndexPlaatjes(PictureBox Boks)
         {
-            int i = 0;
+            int i = 1;
+
             foreach (PictureBox b in Plaatjes)
             {
                 if (b == Boks)
@@ -76,6 +114,20 @@ private void InitializeComponent()
             }
             return -1;
         }
+        //Delay functie, voer milliseconden in bij gebruik van de method.
+        public void Delay(int getal)
+        {
+            Thread.Sleep(getal);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+
+        //Hier is de delay nadat beide kaarten zijn kozen
+        // Thread.Sleep(500);   <<< Dit geeft een delay van 5 seconden. 
 
         /*
                  secondClicked = clickedLabel;
