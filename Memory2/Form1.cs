@@ -61,7 +61,7 @@ namespace Memory2
             //images array size
             int[] ImagesArray = new int[Rows * Columns];
             //draai array size
-            int[] DraaiArray = new int[Rows * Columns];
+            DraaiArray = new int[Rows * Columns];
 
             //tags invullen array, 0 = niet gedraaid, 1 = gedraaid, 2 = geraden
             TagArray = new int[Rows * Columns];
@@ -175,28 +175,19 @@ namespace Memory2
                         //images terug draaien na delay
 
                         //Delay functie, in milliseconden, 1000 milli = 1 sec.
-                        //int DelayMilli = 2000;
-                        //Thread.Sleep(DelayMilli);
+                        int DelayMilli = 2000;
+                        Thread.Sleep(DelayMilli);
 
-                        /*
+                        
                          //draai 2 kaartjes terug
                          string imgbackpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0.png";
                         //aangeklikt kaartje (dus tweede zet)
                         Boxje.Image = System.Drawing.Image.FromFile(imgbackpath);
                         //kaartje eerst zet
-                         PictureBox[FirstClicked] = System.Drawing.Image.FromFile(imgbackpath);
-                         
-                         * /
-                        
+                        Plaatjes[FirstClicked].Image = System.Drawing.Image.FromFile(imgbackpath);
 
-                        /*
-                                 //Delay functie, voer milliseconden in bij gebruik van de method.
-                        public void Delay(int getal)
-                         {
-                        Thread.Sleep(getal);
-                            }
-                         */
-
+                        FirstClicked = 0;
+                        SecondClicked = 0;
 
                     }
 
