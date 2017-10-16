@@ -21,7 +21,7 @@ namespace Memory2
         int[] TagArray;
         int[] DraaiArray;
 
-        int FirstClicked = 0;
+        int FirstClicked = -1;
         int SecondClicked = 0;
 
         public Form1()
@@ -86,7 +86,7 @@ namespace Memory2
                     shuf[i] = shuf[r];
                     shuf[r] = tmp;
                     //box naam
-                    Box.Name = "" + i;
+                    Box.Name = i.ToString();
                     //box tag
                     if (shuf[i] > halfway)
                     {
@@ -140,6 +140,7 @@ namespace Memory2
                     //int FirstClicked = 0;
                     //int SecondClicked = 0;
                     //spoor op in array of er een eerder geklikt kaartje is
+                    /*
                     for (int l = 0; l <(Rows * Columns); l++)
                     {
                         if (TagArray[l] ==1)
@@ -147,9 +148,10 @@ namespace Memory2
                             FirstClicked = l;
                         } 
                     }
+                    */
                     //als er al wel een kaart is omgedraaid in een beurt, oftewel tweede zet in beurt van een speler
-                    if (FirstClicked > 0)
-                    {
+                    if (FirstClicked != -1)
+                {
 
                         //als het wel matched
                         if (DraaiArray[FirstClicked] == DraaiArray[ClickedNum])
@@ -157,7 +159,7 @@ namespace Memory2
 
                             TagArray[ClickedNum] = 2;
                             TagArray[FirstClicked] = 2;
-                            FirstClicked = 0;
+                            FirstClicked = -1;
                             SecondClicked = 0;
                             ClickedNum = 0;
 
@@ -182,7 +184,7 @@ namespace Memory2
                             Plaatjes[FirstClicked].Image = Properties.Resources.kaartje0;
                         Plaatjes[ClickedNum].Image = Properties.Resources.kaartje0;
 
-                        FirstClicked = 0;
+                        FirstClicked = -1;
                             SecondClicked = 0;
                             ClickedNum = 0;
 
