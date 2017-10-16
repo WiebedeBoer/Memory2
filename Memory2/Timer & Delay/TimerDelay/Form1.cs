@@ -27,22 +27,22 @@ namespace TimerDelay
             
         }
 
-
+        
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timer.Stop();
+            timer1.Stop();
             if (TimerDisplay >= 1)
             {
             TimerDisplay--;
             }
             else
             {
-                timer.Stop();
+                timer1.Stop();
             }
             textBox1.Text = Convert.ToString(TimerDisplay);
           
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             timer1.Start();
