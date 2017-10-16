@@ -12,6 +12,7 @@ using System.Windows.Forms;
 
 namespace Memory2
 {
+
     public partial class Form1 : Form
     {
         int Rows = 4;
@@ -20,20 +21,15 @@ namespace Memory2
         int[] TagArray;
         int[] DraaiArray;
 
-
-        //Label firstClicked = null;
-        //Label secondClicked = null;
+        int FirstClicked = 0;
+        int SecondClicked = 0;
 
         public Form1()
         {
+
             InitializeComponent();
             randomAanmaken();
-            /*
-            //first clicked points to first label control
-             firstClicked = Nothing;
-            //second clicked points to the second label control 
-            Private secondClicked = Nothing;
-            */
+
         }
 
         //Genereert kaarten in random volgorde
@@ -78,10 +74,10 @@ namespace Memory2
                 for (int cColumn = 0; cColumn < Columns; cColumn++)
                 {
                     PictureBox Box = new PictureBox();
-                    this.SuspendLayout();
+                    //this.SuspendLayout();
                     Box.BackColor = System.Drawing.SystemColors.ActiveCaption;
-                    string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0" + ".png";
-                    Box.Image = System.Drawing.Image.FromFile(imgpath);
+                    //string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0" + ".png";
+                    Box.Image = Properties.Resources.kaartje0;
                     //locatie van box
                     Box.Location = new System.Drawing.Point(10 + cColumn * 210, cRow * 210);
                     //randomiser
@@ -90,7 +86,7 @@ namespace Memory2
                     shuf[i] = shuf[r];
                     shuf[r] = tmp;
                     //box naam
-                    Box.Name = "" + shuf[i];
+                    Box.Name = "" + i;
                     //box tag
                     if (shuf[i] > halfway)
                     {
@@ -104,6 +100,7 @@ namespace Memory2
                     }
                     //box  size
                     Box.Size = new System.Drawing.Size(200, 200);
+                    //aan plaates array
                     Plaatjes[i] = Box;
                     //increment voor random
                     i++;
@@ -127,111 +124,85 @@ namespace Memory2
 
         public void Box_Click(object sender, EventArgs e)
         {
-            //event koppelen aan box
-            PictureBox Boxje = (PictureBox)sender;
+       
+                //event koppelen aan box
+                PictureBox Boxje = (PictureBox)sender;
 
-            //string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje" + Boxje.Tag + ".png";
-            //Boxje.Image = System.Drawing.Image.FromFile(imgpath);
-
-            //plaats zoeken in array         
-            int ClickedNum = Convert.ToInt32(Boxje.Name) - 1;
-            //image path en tag veranderen, bij wel draaien, check of het 0, of 1 of 2 is
-            if (TagArray[ClickedNum] == 0)
-            {
-                //draai kaartje om
-                string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje" + Boxje.Tag + ".png";
-                Boxje.Image = System.Drawing.Image.FromFile(imgpath);
-
-                //zetten
-                int FirstClicked = 0;
-                int SecondClicked = 0;
-                //spoor op in array of er een eerder geklikt kaartje is
-                for (int l = 0; l <(Rows * Columns); l++)
+                //plaats zoeken in array         
+                int ClickedNum = Convert.ToInt32(Boxje.Name);
+                //image path en tag veranderen, bij wel draaien, check of het 0, of 1 of 2 is
+                if (TagArray[ClickedNum] == 0)
                 {
-                    if (TagArray[l] ==1)
+                    //draai kaartje om
+                    //string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje" + Boxje.Tag + ".png";
+                Boxje.Image = (Image)Properties.Resources.ResourceManager.GetObject("kaartje"+ Boxje.Tag);
+                    //zetten
+                    //int FirstClicked = 0;
+                    //int SecondClicked = 0;
+                    //spoor op in array of er een eerder geklikt kaartje is
+                    for (int l = 0; l <(Rows * Columns); l++)
                     {
-                        FirstClicked = l;
-                    } 
-                }
-                //als er al wel een kaart is omgedraaid in een beurt, oftewel tweede zet in beurt van een speler
-                if (FirstClicked > 0)
-                {
-                    
-                    //als het wel matched
-                    if (DraaiArray[FirstClicked] == DraaiArray[ClickedNum])
-                    {
-                        FirstClicked = FirstClicked;
-                        SecondClicked = ClickedNum;
-
-                        TagArray[SecondClicked] = 2;
-                        TagArray[FirstClicked] = 2;
+                        if (TagArray[l] ==1)
+                        {
+                            FirstClicked = l;
+                        } 
                     }
-                    //als het niet matched
-                    else
+                    //als er al wel een kaart is omgedraaid in een beurt, oftewel tweede zet in beurt van een speler
+                    if (FirstClicked > 0)
                     {
-                        //tags weer terug naar niet gedraaid
-                        TagArray[SecondClicked] = 0;
-                        TagArray[FirstClicked] = 0;
-                        //images terug draaien na delay
 
-                        //Delay functie, in milliseconden, 1000 milli = 1 sec.
-                        int DelayMilli = 2000;
-                        Thread.Sleep(DelayMilli);
+                        //als het wel matched
+                        if (DraaiArray[FirstClicked] == DraaiArray[ClickedNum])
+                        {
 
+                            TagArray[ClickedNum] = 2;
+                            TagArray[FirstClicked] = 2;
+                            FirstClicked = 0;
+                            SecondClicked = 0;
+                            ClickedNum = 0;
+
+                        }
+                        //als het niet matched
+                        else
+                        {
+                            //tags weer terug naar niet gedraaid
+                            TagArray[ClickedNum] = 0;
+                            TagArray[FirstClicked] = 0;
+                            //images terug draaien na delay
+
+                            //Delay functie, in milliseconden, 1000 milli = 1 sec.
+                            //int DelayMilli = 800;
+                            //Thread.Sleep(DelayMilli);
                         
-                         //draai 2 kaartjes terug
-                         string imgbackpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0.png";
+                             //draai 2 kaartjes terug
+                             //string imgbackpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0.png";
                         //aangeklikt kaartje (dus tweede zet)
-                        Boxje.Image = System.Drawing.Image.FromFile(imgbackpath);
-                        //kaartje eerst zet
-                        Plaatjes[FirstClicked].Image = System.Drawing.Image.FromFile(imgbackpath);
+                        
+                            //kaartje eerst zet
+                            Plaatjes[FirstClicked].Image = Properties.Resources.kaartje0;
+                        Plaatjes[ClickedNum].Image = Properties.Resources.kaartje0;
 
                         FirstClicked = 0;
-                        SecondClicked = 0;
+                            SecondClicked = 0;
+                            ClickedNum = 0;
+
+                        }
+
 
                     }
-
-
+                    //als er nog geen kaart is omgedraaid, oftewel eerste zet in beurt van een speler
+                    else
+                    {
+                        //als het matched
+                        TagArray[ClickedNum] = 1;
+                        FirstClicked = ClickedNum;
+                    }
                 }
-                //als er nog geen kaart is omgedraaid, oftewel eerste zet in beurt van een speler
-                else
-                {
-                    //als het matched
-                    TagArray[ClickedNum] = 1;
-                }
-            }
-            
+           
 
-            //Label clickedLabel = sender as Label;
-            /*
-            if (Boxje.Tag != null)
-            {
-                if (Boxje.BackColor ==Color.Black)
-                return;
-                Boxje.BackColor = Color.Black;
             }
 
-            secondClicked = clickedLabel;
-            secondClicked.ForeColor = Color.Black;
-            if (firstClicked.Text == secondClicked.Text)
-            {
-                firstClicked = null;
-                secondClicked = null;
-                return;
-            }
-            */
-
-            /*
-            secondClicked = Boxje.Tag;
-            secondClicked.ForeColor = Color.Black;
-            if (firstClicked == secondClicked)
-            {
-                firstClicked = null;
-                secondClicked = null;
-                return;
-            }
-            */
-        }
+ 
 
         private int IndexPlaatjes(PictureBox Boks)
         {
@@ -245,26 +216,6 @@ namespace Memory2
             return -1;
         }
 
-        /*
-                 secondClicked = clickedLabel;
-        secondClicked.ForeColor = Color.Black;
 
-        // If the player clicked two matching icons, keep them 
-        // black and reset firstClicked and secondClicked 
-        // so the player can click another icon
-        if (firstClicked.Text == secondClicked.Text)
-        {
-            firstClicked = null;
-            secondClicked = null;
-            return;
-        }
-
-        // If the player gets this far, the player 
-        // clicked two different icons, so start the 
-        // timer (which will wait three quarters of 
-        // a second, and then hide the icons)
-        timer1.Start();
-         
-         */
     }
 }
