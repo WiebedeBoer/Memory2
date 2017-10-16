@@ -1,0 +1,10 @@
+C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\bin\Debug\Memory2.exe.config
+C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\bin\Debug\Memory2.exe
+C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\bin\Debug\Memory2.pdb
+C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.Properties.Resources.resources
+C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.csproj.GenerateResource.Cache
+C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.csproj.CoreCompileInputs.cache
+C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.exe
+C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.pdb
+C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.Form1.resources
+C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.csprojResolveAssemblyReference.cache
