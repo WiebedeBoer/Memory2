@@ -24,13 +24,39 @@ namespace Memory2
         int FirstClicked = -1;
         int SecondClicked = 0;
 
+        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+        int TimerDisplay = 7;
+
         public Form1()
         {
 
             InitializeComponent();
             randomAanmaken();
 
+            
+            //timer
+            timer.Stop();
+            InitializeComponent();
+            timer.Tick += new EventHandler(timer1_Tick);
+            timer.Interval = 1000;
+            timer.Enabled = true;
+            
         }
+        
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            if (TimerDisplay >= 1)
+            {
+                TimerDisplay--;
+            }
+            else
+            {
+                timer1.Stop();
+            }
+            textBox1.Text = Convert.ToString(TimerDisplay);
+        }
+        
 
         //Genereert kaarten in random volgorde
         private void randomAanmaken()
@@ -79,7 +105,7 @@ namespace Memory2
                     //string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0" + ".png";
                     Box.Image = Properties.Resources.kaartje0;
                     //locatie van box
-                    Box.Location = new System.Drawing.Point(10 + cColumn * 210, cRow * 210);
+                    Box.Location = new System.Drawing.Point(10 + cColumn * 110, 150 + cRow * 110);
                     //randomiser
                     int tmp = shuf[i];
                     int r = rnd.Next(i, shuf.Length);
@@ -99,7 +125,7 @@ namespace Memory2
                         DraaiArray[i] = shuf[i];
                     }
                     //box  size
-                    Box.Size = new System.Drawing.Size(200, 200);
+                    Box.Size = new System.Drawing.Size(100, 100);
                     //aan plaates array
                     Plaatjes[i] = Box;
                     //increment voor random
@@ -122,6 +148,12 @@ namespace Memory2
         }
         */
 
+        public void Save_Click()
+        {
+
+        }
+
+
         public void Box_Click(object sender, EventArgs e)
         {
        
@@ -135,26 +167,20 @@ namespace Memory2
                 {
                     //draai kaartje om
                     //string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje" + Boxje.Tag + ".png";
-                Boxje.Image = (Image)Properties.Resources.ResourceManager.GetObject("kaartje"+ Boxje.Tag);
-                    //zetten
-                    //int FirstClicked = 0;
-                    //int SecondClicked = 0;
-                    //spoor op in array of er een eerder geklikt kaartje is
-                    /*
-                    for (int l = 0; l <(Rows * Columns); l++)
-                    {
-                        if (TagArray[l] ==1)
-                        {
-                            FirstClicked = l;
-                        } 
-                    }
-                    */
+                    Boxje.Image = (Image)Properties.Resources.ResourceManager.GetObject("kaartje"+ Boxje.Tag);
+
                     //als er al wel een kaart is omgedraaid in een beurt, oftewel tweede zet in beurt van een speler
                     if (FirstClicked != -1)
-                {
+                    {
+                        //timer
+                        
+                        timer1.Stop();
+                        TimerDisplay = 7;
+                        timer1.Start();
+                        
 
-                        //als het wel matched
-                        if (DraaiArray[FirstClicked] == DraaiArray[ClickedNum])
+                    //als het wel matched
+                    if (DraaiArray[FirstClicked] == DraaiArray[ClickedNum])
                         {
 
                             TagArray[ClickedNum] = 2;
@@ -170,21 +196,18 @@ namespace Memory2
                             //tags weer terug naar niet gedraaid
                             TagArray[ClickedNum] = 0;
                             TagArray[FirstClicked] = 0;
-                            //images terug draaien na delay
 
                             //Delay functie, in milliseconden, 1000 milli = 1 sec.
-                            //int DelayMilli = 800;
-                            //Thread.Sleep(DelayMilli);
+                            int DelayMilli = 1800;
+                            Thread.Sleep(DelayMilli);
                         
-                             //draai 2 kaartjes terug
-                             //string imgbackpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0.png";
-                        //aangeklikt kaartje (dus tweede zet)
+                              //string imgbackpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0.png";
                         
-                            //kaartje eerst zet
+                            //draai 2 kaartjes terug
                             Plaatjes[FirstClicked].Image = Properties.Resources.kaartje0;
-                        Plaatjes[ClickedNum].Image = Properties.Resources.kaartje0;
+                            Plaatjes[ClickedNum].Image = Properties.Resources.kaartje0;
 
-                        FirstClicked = -1;
+                            FirstClicked = -1;
                             SecondClicked = 0;
                             ClickedNum = 0;
 
