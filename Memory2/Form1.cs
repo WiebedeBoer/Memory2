@@ -23,26 +23,26 @@ namespace Memory2
 
         int FirstClicked = -1;
         int SecondClicked = 0;
-
+        /*
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         int TimerDisplay = 7;
+        */
 
         public Form1()
         {
 
             InitializeComponent();
             randomAanmaken();
-
-            
+            /*
             //timer
             timer.Stop();
             InitializeComponent();
             timer.Tick += new EventHandler(timer1_Tick);
             timer.Interval = 1000;
             timer.Enabled = true;
-            
+            */
         }
-        
+        /*
         private void timer1_Tick(object sender, EventArgs e)
         {
             timer1.Stop();
@@ -56,7 +56,7 @@ namespace Memory2
             }
             textBox1.Text = Convert.ToString(TimerDisplay);
         }
-        
+        */
 
         //Genereert kaarten in random volgorde
         private void randomAanmaken()
@@ -153,7 +153,6 @@ namespace Memory2
 
         }
 
-
         public void Box_Click(object sender, EventArgs e)
         {
        
@@ -172,12 +171,17 @@ namespace Memory2
                     //als er al wel een kaart is omgedraaid in een beurt, oftewel tweede zet in beurt van een speler
                     if (FirstClicked != -1)
                     {
+                        /*
                         //timer
-                        
                         timer1.Stop();
                         TimerDisplay = 7;
                         timer1.Start();
-                        
+                        */
+
+                    //Delay functie, in milliseconden, 1000 milli = 1 sec.
+                    int DelayMilli = 1800;
+                    Thread.Sleep(DelayMilli);
+
 
                     //als het wel matched
                     if (DraaiArray[FirstClicked] == DraaiArray[ClickedNum])
@@ -197,9 +201,7 @@ namespace Memory2
                             TagArray[ClickedNum] = 0;
                             TagArray[FirstClicked] = 0;
 
-                            //Delay functie, in milliseconden, 1000 milli = 1 sec.
-                            int DelayMilli = 1800;
-                            Thread.Sleep(DelayMilli);
+
                         
                               //string imgbackpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0.png";
                         
@@ -213,7 +215,6 @@ namespace Memory2
 
                         }
 
-
                     }
                     //als er nog geen kaart is omgedraaid, oftewel eerste zet in beurt van een speler
                     else
@@ -222,12 +223,10 @@ namespace Memory2
                         TagArray[ClickedNum] = 1;
                         FirstClicked = ClickedNum;
                     }
-                }
-           
+                }     
 
             }
 
- 
 
         private int IndexPlaatjes(PictureBox Boks)
         {

@@ -30,7 +30,7 @@
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            //this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -42,7 +42,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(2, 2);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-
+            /*
             // 
             // textBox1
             // 
@@ -50,6 +50,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 0;
+            */
 
             // 
             // Form1
@@ -68,8 +69,10 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
+        /*
         private System.Windows.Forms.TextBox textBox1;
         public System.Windows.Forms.Timer timer1;
+        */
     }
 }
 
