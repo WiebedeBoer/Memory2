@@ -148,10 +148,7 @@ namespace Memory2
         }
         */
 
-        public void Save_Click()
-        {
 
-        }
 
         public void Box_Click(object sender, EventArgs e)
         {
