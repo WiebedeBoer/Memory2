@@ -22,5 +22,16 @@ namespace Memory2
             var myForm = new Form1();
             myForm.Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var myForm = new highscores();
+            myForm.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
