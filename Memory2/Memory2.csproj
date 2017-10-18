@@ -51,8 +51,15 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="opties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="opties.Designer.cs">
+      <DependentUpon>opties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="saver.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -64,6 +71,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -77,6 +85,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\kaartje0.png" />
+    <Content Include="Properties\kaartje1.png" />
+    <Content Include="Properties\kaartje10.png" />
+    <Content Include="Properties\kaartje11.png" />
+    <Content Include="Properties\kaartje12.png" />
+    <Content Include="Properties\kaartje13.png" />
+    <Content Include="Properties\kaartje14.png" />
+    <Content Include="Properties\kaartje15.png" />
+    <Content Include="Properties\kaartje16.png" />
+    <Content Include="Properties\kaartje2.png" />
+    <Content Include="Properties\kaartje3.png" />
+    <Content Include="Properties\kaartje4.png" />
+    <Content Include="Properties\kaartje5.png" />
+    <Content Include="Properties\kaartje6.png" />
+    <Content Include="Properties\kaartje7.png" />
+    <Content Include="Properties\kaartje8.png" />
+    <Content Include="Properties\kaartje9.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
