@@ -15,14 +15,44 @@ namespace Memory2
 
     public partial class Form1 : Form
     {
-        int Rows = 4;
-        int Columns = 4;
-        PictureBox[] Plaatjes;
-        int[] TagArray;
-        int[] DraaiArray;
+        /*
+         private static Form1 instance = new Form1();
+         public static Form1 GetInstance ()
+         {
 
-        int FirstClicked = -1;
-        int SecondClicked = 0;
+         }
+
+         private UserControl view;
+         private Form1() 
+         {
+         InitializeComponent();
+         SetView(new Game ());
+         }
+
+         //size
+         this.Size = new System.Draawing.Size(820, 920);
+
+         public void SetView (UserControl view)
+         {
+         Controls.Remove(this.view);
+         this.view = view;
+         this.view.Dock = DockStyle.Fill;
+         Controls.Add(view);
+         }
+
+
+        */
+
+
+
+        public int Rows = 4;
+        public int Columns = 4;
+        PictureBox[] Plaatjes;
+        public int[] TagArray;
+        public int[] DraaiArray;
+
+        public int FirstClicked = -1;
+        public int SecondClicked = 0;
         /*
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         int TimerDisplay = 7;
@@ -32,7 +62,7 @@ namespace Memory2
         {
 
             InitializeComponent();
-            randomAanmaken();
+            //randomAanmaken();
             /*
             //timer
             timer.Stop();
@@ -237,6 +267,9 @@ namespace Memory2
             return -1;
         }
 
-
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            randomAanmaken();
+        }
     }
 }
