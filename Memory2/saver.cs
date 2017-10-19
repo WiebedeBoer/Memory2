@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Memory2
 {
@@ -39,8 +40,8 @@ namespace Memory2
         }
 
 
+        string filename = "memory.sav";
 
-        
         public class SaveXML
         {
             public static void SaveData(object obj, string filename)
@@ -52,51 +53,36 @@ namespace Memory2
             }
         }
         
-
-        string savname = "memory";
-
-        /*
-        private void CreateXML_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Information info = new Information();
-                info.Data1 = Rows;
-                info.Data2 = Columns;
-                info.Data3 = FirstClicked;
-                info.Data4 = DraaiArray[];
-                info.Data5 = TagArray[];
-
-                SaveXML.SaveData(info, "data.xml");
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        */
-
-
         //save game
         //public void Save_Click(string savname)
         public void Save_Click(object sender, EventArgs e)
         {
+            //overwrite, 
+            //delete voor maken
+            //MessageBox.Show("ja bestaat");
+            string savpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\memory.sav";
+
+            if (File.Exists(savpath))
+            {
+                //File.Delete("memory.sav");
+                MessageBox.Show("ja opgeslagen");
+            }
+
             try
             {
                 Information info = new Information();
-                /*
-                info.Data1 = Rows;
-                info.Data2 = Columns;
-                info.Data3 = FirstClicked;
-                info.Data4 = DraaiArray[];
-                info.Data5 = TagArray[];
-                */
+                
+                info.Rows = Form1.Rows;
+                info.Columns = Form1.Columns;
+                info.FirstClicked = Form1.FirstClicked;
+                info.DraaiArray = Form1.DraaiArray;
+                info.TagArray = Form1.TagArray;
+                
                 SaveXML.SaveData(info, "memory.sav");
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
             }
 
 
@@ -132,7 +118,9 @@ namespace Memory2
         //load game
         public void Load_Click(string savname)
         {
-            if (File.Exists("memory.sav"))
+            string savpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\memory.sav";
+
+            if (File.Exists(savpath))
             {
 
                 XmlSerializer xs = new XmlSerializer(typeof(Information));
@@ -140,13 +128,13 @@ namespace Memory2
                 FileStream read = new FileStream("memory.sav", FileMode.Open, FileAccess.Read, FileShare.Read);
 
                 Information info = (Information)xs.Deserialize(read);
-                /*
-                Data1.Text = info.Data1;
 
-                Data2.Text = info.Data2;
+                Form1.Rows = info.Rows;
+                Form1.Columns = info.Columns;
+                Form1.FirstClicked = info.FirstClicked;
+                Form1.DraaiArray = info.DraaiArray;
+                Form1.TagArray = info.TagArray;
 
-                Data3.Text = info.Data3;
-                */
             }
             /*
             //open storage container
