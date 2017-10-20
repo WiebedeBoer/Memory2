@@ -8,3 +8,5 @@ C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.exe
 C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.pdb
 C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.Form1.resources
 C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.csprojResolveAssemblyReference.cache
+C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.hoofdmenu.resources
+C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\obj\Debug\Memory2.login.resources
