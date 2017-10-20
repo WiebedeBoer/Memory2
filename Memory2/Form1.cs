@@ -212,7 +212,7 @@ namespace Memory2
         }
         */
 
-        public void Box_Click(object sender, EventArgs e)
+        public async void Box_Click(object sender, EventArgs e)
         {
        
                 //event koppelen aan box
@@ -230,17 +230,24 @@ namespace Memory2
                     //als er al wel een kaart is omgedraaid in een beurt, oftewel tweede zet in beurt van een speler
                     if (FirstClicked != -1)
                     {
-                        /*
-                        //timer
-                        timer1.Stop();
-                        TimerDisplay = 7;
-                        timer1.Start();
-                        */
+                    /*
+                    //timer
+                    timer1.Stop();
+                    TimerDisplay = 7;
+                    timer1.Start();
+                    */
 
                     //Delay functie, in milliseconden, 1000 milli = 1 sec.
-                    int DelayMilli = 1800;
-                    Thread.Sleep(DelayMilli);
+                    //int DelayMilli = 1800;
+                    //Thread.Sleep(DelayMilli);
 
+                    /*
+                    private async void Onpicturebox(object sender)
+                    {
+                        await Task.Delay(800);
+
+                    }
+                    */
 
                     //als het wel matched
                     if (DraaiArray[FirstClicked] == DraaiArray[ClickedNum])
@@ -260,10 +267,11 @@ namespace Memory2
                             TagArray[ClickedNum] = 0;
                             TagArray[FirstClicked] = 0;
 
+                            //delay
+                            await Task.Delay(800);
 
-                        
-                              //string imgbackpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0.png";
-                        
+                            //string imgbackpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0.png";
+
                             //draai 2 kaartjes terug
                             Plaatjes[FirstClicked].Image = Properties.Resources.kaartje0;
                             Plaatjes[ClickedNum].Image = Properties.Resources.kaartje0;
