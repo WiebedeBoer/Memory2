@@ -14,7 +14,7 @@ namespace Memory2
         
         //device;
         //public class StorageContainer : IDisposable
-
+        [Serializable]
         //save game data
         public class Information
         {
@@ -24,15 +24,21 @@ namespace Memory2
             //thema
 
             //aantal spelers
-
+            public int Players;
             //spelers namen
-
+            //player 1 naam
+            public string player1name;
+            //player 2 naam
+            public string player2name;
             //spelers beurt
-
+            public int playerturn;
             //zetten
             public int FirstClicked;
             //spelers score
-
+            //player 1 score
+            public int player1score;
+            //player 2 score
+            public int player2score;
             //kaartjes posities in raster         
             public int[] DraaiArray;
             //kaartjes gedraaid, niet gedraaid, geraden
@@ -85,6 +91,9 @@ namespace Memory2
                 MessageBox.Show(ex.Message);
             }
 
+            //File.WriteAllBytes (savpath, Serialized);
+            //File.Encrypt(savpath);
+
 
             /*
             //open een storage container
@@ -119,6 +128,8 @@ namespace Memory2
         public void Load_Click(string savname)
         {
             string savpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\memory.sav";
+            //GameState gameState;
+            //File.Decrypt(savpath);
 
             if (File.Exists(savpath))
             {

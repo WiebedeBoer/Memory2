@@ -15,9 +15,8 @@ namespace Memory2
 
     public partial class Form1 : Form
     {
-
-        Thread thr;
         //reset spel
+        Thread thr;
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -65,6 +64,7 @@ namespace Memory2
          }
 
         */
+
         //player 1 score
         public static int player1score = 0;
         //player 2 score
@@ -75,6 +75,10 @@ namespace Memory2
         public static string player2name = "Naam2";
         //rijen
         public static int Rows = 4;
+        //spelers
+        public static int Players = 2;
+        //spelers beurt
+        public static int playerturn = 0;
         //kolommen
         public static int Columns = 4;
         //kaartjes array
@@ -87,6 +91,10 @@ namespace Memory2
         public static int FirstClicked = -1;
         //second clicked kaartje
         public static int SecondClicked = 0;
+
+        //half of total cards
+        public int halfway = (Rows * Columns) / 2;
+
         /*
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         int TimerDisplay = 7;
@@ -125,8 +133,7 @@ namespace Memory2
         //Genereert kaarten in random volgorde
         private void randomAanmaken()
         {
-            //half of total cards
-            int halfway = (Rows * Columns) / 2;
+            
 
             //shuffle array declareren
             int[] shuf = new int[Rows * Columns];
@@ -237,18 +244,6 @@ namespace Memory2
                     timer1.Start();
                     */
 
-                    //Delay functie, in milliseconden, 1000 milli = 1 sec.
-                    //int DelayMilli = 1800;
-                    //Thread.Sleep(DelayMilli);
-
-                    /*
-                    private async void Onpicturebox(object sender)
-                    {
-                        await Task.Delay(800);
-
-                    }
-                    */
-
                     //als het wel matched
                     if (DraaiArray[FirstClicked] == DraaiArray[ClickedNum])
                         {
@@ -258,17 +253,46 @@ namespace Memory2
                             FirstClicked = -1;
                             SecondClicked = 0;
                             ClickedNum = 0;
+                            //spelers score
+                            switch (playerturn)
+                            {
+                            case 0:
+                                player1score = player1score + 1;
+                            break;
+                            case 1:
+                                player2score = player2score + 1;
+                            break;
+                            }
+                            //spel stop
+                            int totalscore = player1score + player2score;
+                            if (totalscore >=halfway)
+                            {
+                            //bericht spel is stop
+                            MessageBox.Show("spel is geeindigd");
+                            //opslaan in hhighscores
+                            }
 
                         }
-                        //als het niet matched
-                        else
+                    //als het niet matched
+                    else
                         {
                             //tags weer terug naar niet gedraaid
                             TagArray[ClickedNum] = 0;
                             TagArray[FirstClicked] = 0;
 
-                            //delay
-                            await Task.Delay(800);
+                        //spelers volgende beurt
+                        switch (playerturn)
+                        {
+                            case 0:
+                                playerturn = 1;
+                                break;
+                            case 1:
+                                playerturn = 0;
+                                break;
+                        }
+
+                        //delay
+                        await Task.Delay(800);
 
                             //string imgbackpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0.png";
 
@@ -318,8 +342,8 @@ namespace Memory2
             if (File.Exists(savpath))
                 {
                 //File.Delete("memory.sav");
-                MessageBox.Show("ja opgeslagen");
-            }
+                MessageBox.Show("ja, sav bestand is er");
+                }
             
         }
     }
