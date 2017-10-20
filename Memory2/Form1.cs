@@ -15,6 +15,30 @@ namespace Memory2
 
     public partial class Form1 : Form
     {
+
+        Thread thr;
+        //reset spel
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            thr = new Thread(opennewgame);
+            thr.SetApartmentState(ApartmentState.STA);
+            thr.Start();
+            /*
+            randomAanmaken();
+            player1score = 0;
+            player2score = 0;
+            player1name = "Naam1";
+            player2name = "Naam2";
+            */
+        }
+        //open spel na reset
+        private void opennewgame(object obj)
+        {
+            //throw new NotImplementedException();
+            Application.Run(new Form1());
+        }
+
         /*
          private static Form1 instance = new Form1();
          public static Form1 GetInstance ()
@@ -40,19 +64,29 @@ namespace Memory2
          Controls.Add(view);
          }
 
-
         */
-
-
-
-        int Rows = 4;
-        int Columns = 4;
+        //player 1 score
+        public static int player1score = 0;
+        //player 2 score
+        public static int player2score = 0;
+        //player 1 naam
+        public static string player1name = "Naam1";
+        //player 2 naam
+        public static string player2name = "Naam2";
+        //rijen
+        public static int Rows = 4;
+        //kolommen
+        public static int Columns = 4;
+        //kaartjes array
         PictureBox[] Plaatjes;
-        int[] TagArray;
-        int[] DraaiArray;
-
-        int FirstClicked = -1;
-        int SecondClicked = 0;
+        //array kaartje status, 0 = niet gedraaid, 1 = gedraaid, 2 = geraden
+        public static int[] TagArray;
+        //array met tags kaartjes nummers 1 t/m 8
+        public static int[] DraaiArray;
+        //first clicked kaartje
+        public static int FirstClicked = -1;
+        //second clicked kaartje
+        public static int SecondClicked = 0;
         /*
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         int TimerDisplay = 7;
@@ -178,8 +212,6 @@ namespace Memory2
         }
         */
 
-
-
         public void Box_Click(object sender, EventArgs e)
         {
        
@@ -198,17 +230,24 @@ namespace Memory2
                     //als er al wel een kaart is omgedraaid in een beurt, oftewel tweede zet in beurt van een speler
                     if (FirstClicked != -1)
                     {
-                        /*
-                        //timer
-                        timer1.Stop();
-                        TimerDisplay = 7;
-                        timer1.Start();
-                        */
+                    /*
+                    //timer
+                    timer1.Stop();
+                    TimerDisplay = 7;
+                    timer1.Start();
+                    */
 
                     //Delay functie, in milliseconden, 1000 milli = 1 sec.
-                    int DelayMilli = 1800;
-                    Thread.Sleep(DelayMilli);
+                    //int DelayMilli = 1800;
+                    //Thread.Sleep(DelayMilli);
 
+                    /*
+                    private async void Onpicturebox(object sender)
+                    {
+                        await Task.Delay(800);
+
+                    }
+                    */
 
                     //als het wel matched
                     if (DraaiArray[FirstClicked] == DraaiArray[ClickedNum])
@@ -267,9 +306,20 @@ namespace Memory2
             return -1;
         }
 
+        //new game
         private void Form1_Load(object sender, EventArgs e)
         {
             randomAanmaken();
+            
+            //check sav bestand
+            string savpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\memory.sav";
+            //if (File.Exists(@"C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\memory.sav"))
+            if (File.Exists(savpath))
+                {
+                //File.Delete("memory.sav");
+                MessageBox.Show("ja opgeslagen");
+            }
+            
         }
     }
 }
