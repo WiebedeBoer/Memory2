@@ -25,7 +25,7 @@ namespace Memory2
         int[] Na2 = new int[4] { 4, 2, 3, 7 };
         int[] Na3 = new int[4] { 5, 1, 2, 8 };
         int[] Na4 = new int[4] { 2, 1, 5, 8 };*/
-        string name1 = "naam 1";
+        //string name1 = "naam 1";
 
 
 

@@ -56,7 +56,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(76, 89);
-            this.button3.Name = "button3";
+            this.button3.Name = "Load Game";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 2;
             this.button3.Text = "Load Game";

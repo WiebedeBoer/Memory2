@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Memory2
 {
-    class saver
+    public class saver
     {
         
         //device;
@@ -46,7 +46,7 @@ namespace Memory2
         }
 
 
-        string filename = "memory.sav";
+        //string filename = "memory.sav";
 
         public class SaveXML
         {
@@ -61,12 +61,14 @@ namespace Memory2
         
         //save game
         //public void Save_Click(string savname)
-        public void Save_Click(object sender, EventArgs e)
+        public static void Save_Click()
         {
             //overwrite, 
             //delete voor maken
             //MessageBox.Show("ja bestaat");
-            string savpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\memory.sav";
+            //string savpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\memory.sav";
+
+            string savpath = Environment.CurrentDirectory + "/memory.sav";
 
             if (File.Exists(savpath))
             {
@@ -76,14 +78,15 @@ namespace Memory2
 
             try
             {
-                Information info = new Information();
+                Information info = Form1.saveGame;
                 
                 info.Rows = Form1.Rows;
                 info.Columns = Form1.Columns;
                 info.FirstClicked = Form1.FirstClicked;
-                info.DraaiArray = Form1.DraaiArray;
-                info.TagArray = Form1.TagArray;
-                
+                /*
+                info.DraaiArray = Form1.saveGame.DraaiArray;
+                info.TagArray = Form1.saveGame.TagArray;
+                */
                 SaveXML.SaveData(info, "memory.sav");
             }
             catch (Exception ex)
@@ -127,9 +130,11 @@ namespace Memory2
         //load game
         public void Load_Click(string savname)
         {
-            string savpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\memory.sav";
+            //string savpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\memory.sav";
             //GameState gameState;
             //File.Decrypt(savpath);
+
+            string savpath = Environment.CurrentDirectory + "/memory.sav";
 
             if (File.Exists(savpath))
             {
@@ -140,11 +145,54 @@ namespace Memory2
 
                 Information info = (Information)xs.Deserialize(read);
 
-                Form1.Rows = info.Rows;
-                Form1.Columns = info.Columns;
-                Form1.FirstClicked = info.FirstClicked;
-                Form1.DraaiArray = info.DraaiArray;
-                Form1.TagArray = info.TagArray;
+                Form1.saveGame.player1name = info.player1name;
+                Form1.saveGame.player2name = info.player2name;
+                Form1.saveGame.player1score = info.player1score;
+                Form1.saveGame.player2score = info.player2score;
+                Form1.saveGame.Rows = info.Rows;
+                Form1.saveGame.Columns = info.Columns;
+                Form1.saveGame.FirstClicked = info.FirstClicked;
+                Form1.saveGame.DraaiArray = info.DraaiArray;
+                Form1.saveGame.TagArray = info.TagArray;
+
+                //plaatjes raster loops
+                Plaatjes = new PictureBox[Rows * Columns];
+                int i = 0;
+                for (int cRow = 0; cRow < Rows; cRow++)
+                {
+                    for (int cColumn = 0; cColumn < Columns; cColumn++)
+                    {
+                        PictureBox Box = new PictureBox();
+                        //this.SuspendLayout();
+                        Box.BackColor = System.Drawing.SystemColors.ActiveCaption;
+                        Box.Image = Properties.Resources.kaartje0;
+                        //locatie van box
+                        Box.Location = new System.Drawing.Point(10 + cColumn * 110, 150 + cRow * 110);
+
+                        //box naam
+                        Box.Name = i.ToString();
+                        //box tag
+                        Box.Tag = shuf[i];
+                        DraaiArray[i] = shuf[i];
+                        
+                        //box  size
+                        Box.Size = new System.Drawing.Size(100, 100);
+                        //aan plaates array
+                        Plaatjes[i] = Box;
+                        //increment voor random
+                        i++;
+                        //box toevoegen
+                        this.Controls.Add(Box);
+                        //clicker
+                        Box.Click += Box_Click;
+                        //layout kaartjes
+                        ((System.ComponentModel.ISupportInitialize)(Box)).EndInit();
+                        this.ResumeLayout(false);
+                    }
+                }
+
+
+
 
             }
             /*

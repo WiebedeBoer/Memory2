@@ -50,6 +50,15 @@ namespace Memory2
                 //Form myForm = new highscores();
                 //myForm.Show();
             }
+            else if (formName == "Load Game")
+            {
+                this.Close();
+                th = new Thread(loadgame);
+                th.SetApartmentState(ApartmentState.STA);
+                th.Start();
+                //Form myForm = new highscores();
+                //myForm.Show();
+            }
             else {
             }
 
@@ -59,7 +68,7 @@ namespace Memory2
         private void opennewform(object obj)
         {
             //throw new NotImplementedException();
-            Application.Run(new Form1());
+            Application.Run(new login());
         }
 
         private void opennewhigh(object obj)
@@ -72,6 +81,12 @@ namespace Memory2
         {
             //throw new NotImplementedException();
             Application.Run(new opties());
+        }
+
+        private void loadgame(object obj)
+        {
+            //throw new NotImplementedException();
+            Application.Run(new Form1());
         }
 
         /*

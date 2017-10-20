@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
+using static Memory2.saver;
 
 namespace Memory2
 {
@@ -36,6 +38,11 @@ namespace Memory2
         {
             //throw new NotImplementedException();
             Application.Run(new Form1());
+        }
+        //save spel
+        private void button2_Click(object sender, EventArgs e)
+        {
+            saver.Save_Click();
         }
 
         /*
@@ -70,23 +77,27 @@ namespace Memory2
         //player 2 score
         public static int player2score = 0;
         //player 1 naam
-        public static string player1name = "Naam1";
+        //string player1name = login.player1name;
+        //public static string player1name = "naam1";
+        public static Information saveGame = new Information();
         //player 2 naam
-        public static string player2name = "Naam2";
+        //string player2name = login.player2name;
+        //public static string player2name = "naam2";
+        //public static Information player2name;
         //rijen
         public static int Rows = 4;
+        //kolommen
+        public static int Columns = 4;
         //spelers
         public static int Players = 2;
         //spelers beurt
         public static int playerturn = 0;
-        //kolommen
-        public static int Columns = 4;
         //kaartjes array
         PictureBox[] Plaatjes;
         //array kaartje status, 0 = niet gedraaid, 1 = gedraaid, 2 = geraden
-        public static int[] TagArray;
+        //public static int[] TagArray;
         //array met tags kaartjes nummers 1 t/m 8
-        public static int[] DraaiArray;
+        ///public static int[] DraaiArray;
         //first clicked kaartje
         public static int FirstClicked = -1;
         //second clicked kaartje
@@ -154,13 +165,13 @@ namespace Memory2
             //images array size
             int[] ImagesArray = new int[Rows * Columns];
             //draai array size
-            DraaiArray = new int[Rows * Columns];
+            saveGame.DraaiArray = new int[Rows * Columns];
 
             //tags invullen array, 0 = niet gedraaid, 1 = gedraaid, 2 = geraden
-            TagArray = new int[Rows * Columns];
+            saveGame.TagArray = new int[Rows * Columns];
             for (int j = 0; j <(Rows * Columns); j++)
             {
-                TagArray[j] = 0;
+                saveGame.TagArray[j] = 0;
             }
 
             //plaatjes raster loops
@@ -188,12 +199,12 @@ namespace Memory2
                     if (shuf[i] > halfway)
                     {
                         Box.Tag = shuf[i] - halfway;
-                        DraaiArray[i] = shuf[i] - halfway;
+                        saveGame.DraaiArray[i] = shuf[i] - halfway;
                     }
                     else
                     {
                         Box.Tag = shuf[i];
-                        DraaiArray[i] = shuf[i];
+                        saveGame.DraaiArray[i] = shuf[i];
                     }
                     //box  size
                     Box.Size = new System.Drawing.Size(100, 100);
@@ -221,14 +232,17 @@ namespace Memory2
 
         public async void Box_Click(object sender, EventArgs e)
         {
-       
+                if (FirstClicked != -1 && SecondClicked != -1)
+            {
+                return;
+            }
                 //event koppelen aan box
                 PictureBox Boxje = (PictureBox)sender;
 
                 //plaats zoeken in array         
                 int ClickedNum = Convert.ToInt32(Boxje.Name);
                 //image path en tag veranderen, bij wel draaien, check of het 0, of 1 of 2 is
-                if (TagArray[ClickedNum] == 0)
+                if (saveGame.TagArray[ClickedNum] == 0)
                 {
                     //draai kaartje om
                     //string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje" + Boxje.Tag + ".png";
@@ -245,11 +259,11 @@ namespace Memory2
                     */
 
                     //als het wel matched
-                    if (DraaiArray[FirstClicked] == DraaiArray[ClickedNum])
+                    if (saveGame.DraaiArray[FirstClicked] == saveGame.DraaiArray[ClickedNum])
                         {
 
-                            TagArray[ClickedNum] = 2;
-                            TagArray[FirstClicked] = 2;
+                            saveGame.TagArray[ClickedNum] = 2;
+                            saveGame.TagArray[FirstClicked] = 2;
                             FirstClicked = -1;
                             SecondClicked = 0;
                             ClickedNum = 0;
@@ -277,18 +291,17 @@ namespace Memory2
                     else
                         {
                             //tags weer terug naar niet gedraaid
-                            TagArray[ClickedNum] = 0;
-                            TagArray[FirstClicked] = 0;
+                            saveGame.TagArray[ClickedNum] = 0;
+                            saveGame.TagArray[FirstClicked] = 0;
 
                         //spelers volgende beurt
-                        switch (playerturn)
+                        if (playerturn < Players)
                         {
-                            case 0:
-                                playerturn = 1;
-                                break;
-                            case 1:
-                                playerturn = 0;
-                                break;
+                            playerturn = playerturn + 1;
+                        }
+                        else
+                        {
+                            playerturn = 0;
                         }
 
                         //delay
@@ -311,7 +324,7 @@ namespace Memory2
                     else
                     {
                         //als het matched
-                        TagArray[ClickedNum] = 1;
+                        saveGame.TagArray[ClickedNum] = 1;
                         FirstClicked = ClickedNum;
                     }
                 }     
@@ -331,11 +344,24 @@ namespace Memory2
             return -1;
         }
 
+
         //new game
         private void Form1_Load(object sender, EventArgs e)
         {
             randomAanmaken();
-            
+
+            if (File.Exists("spelers.xml"))
+            {
+                XmlSerializer xs = new XmlSerializer(typeof(Information));
+                FileStream read = new FileStream("spelers.xml", FileMode.Open, FileAccess.Read, FileShare.Read);
+                Information info = (Information)xs.Deserialize(read);
+                saveGame.player1name = info.player1name;
+                saveGame.player2name = info.player2name;
+            }
+
+
+
+    /*
             //check sav bestand
             string savpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\memory.sav";
             //if (File.Exists(@"C:\Users\Fam. de Boer\source\repos\Memory2\Memory2\memory.sav"))
@@ -344,6 +370,7 @@ namespace Memory2
                 //File.Delete("memory.sav");
                 MessageBox.Show("ja, sav bestand is er");
                 }
+*/
             
         }
     }
