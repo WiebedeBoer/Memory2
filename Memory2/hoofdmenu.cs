@@ -64,6 +64,51 @@ namespace Memory2
 
             
         }
+        /*
+        string[][] highscoresarr1 = new string[][] { new string[2] { "6", "Na1" }, new string[2] { "2", "Na2" }, new string[2] { "3", "Na3" }, new string[2] { "5", "Na4" } };
+
+        private void highscoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Panel dynamicPanel = new Panel();
+            dynamicPanel.Location = new Point(0, 0);
+            dynamicPanel.Name = "Panel1";
+            dynamicPanel.Size = new Size(400, 400);
+            dynamicPanel.BackColor = Color.LightBlue;
+
+            ListView rank = new ListView();
+            rank.Location = new Point(10, 30);
+            rank.Size = new Size(25, 100);
+            rank.Columns.Add("#", 100);
+            rank.View = View.Details;
+            rank.Scrollable = false;
+
+            ListView highscores = new ListView();
+            highscores.Location = new Point(50, 30);
+            highscores.Size = new Size(105, 100);
+            highscores.Columns.Add("Points", 50);
+            highscores.Columns.Add("Name", 50);
+            highscores.View = View.Details;
+
+            int i = 0;
+
+            foreach (string[] subArray in highscoresarr1)
+            {
+                string j = Convert.ToString(i + 1);
+                ListViewItem item1 = new ListViewItem(highscoresarr1[i][0], 0);
+                item1.SubItems.Add(highscoresarr1[i][1]);
+                highscores.Items.AddRange(new ListViewItem[] { item1 });
+                i++;
+                rank.Items.Add(new ListViewItem(j));
+            }
+
+            highscores.Sorting = SortOrder.Descending;
+
+            dynamicPanel.Controls.Add(rank);
+            dynamicPanel.Controls.Add(highscores);
+            Controls.Add(dynamicPanel);
+
+        }
+        */
 
         private void opennewform(object obj)
         {
@@ -96,9 +141,11 @@ namespace Memory2
         }
         */
 
+         /*
         private void button3_Click(object sender, EventArgs e)
         {
 
         }
+        */
     }
 }

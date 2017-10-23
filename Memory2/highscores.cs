@@ -17,7 +17,9 @@ namespace Memory2
             InitializeComponent();
         }
 
-        private void highscoresToolStripMenuItem_Click(object sender, EventArgs e)
+        string[][] highscoresarr1 = new string[][] { new string[2] { "6", "Na1" }, new string[2] { "2", "Na2" }, new string[2] { "3", "Na3" }, new string[2] { "5", "Na4" } };
+
+        private void highscoresTool()
         {
             Panel dynamicPanel = new Panel();
             dynamicPanel.Location = new Point(0, 0);
@@ -25,30 +27,47 @@ namespace Memory2
             dynamicPanel.Size = new Size(400, 400);
             dynamicPanel.BackColor = Color.LightBlue;
 
+            ListView rank = new ListView();
+            rank.Location = new Point(10, 30);
+            rank.Size = new Size(25, 100);
+            rank.Columns.Add("#", 100);
+            rank.View = View.Details;
+            rank.Scrollable = false;
+
             ListView highscores = new ListView();
-            highscores.Location = new Point(10, 30);
-            highscores.Size = new Size(325, 100);
-            highscores.Columns.Add("#", 20);
-            highscores.Columns.Add("Name", 100);
-            highscores.Columns.Add("Wins", 50);
-            highscores.Columns.Add("Ties", 50);
-            highscores.Columns.Add("Losses", 50);
-            highscores.Columns.Add("Games", 50);
+            highscores.Location = new Point(50, 30);
+            highscores.Size = new Size(105, 100);
+            highscores.Columns.Add("Points", 50);
+            highscores.Columns.Add("Name", 50);
             highscores.View = View.Details;
 
-            ListViewItem item1 = new ListViewItem("0", 0);
-            item1.SubItems.Add("1");
-            item1.SubItems.Add("2");
-            item1.SubItems.Add("3");
-            item1.SubItems.Add("4");
-            item1.SubItems.Add("5");
-            highscores.Items.AddRange(new ListViewItem[] { item1 });
+            int i = 0;
 
+            foreach (string[] subArray in highscoresarr1)
+            {
+                string j = Convert.ToString(i + 1);
+                ListViewItem item1 = new ListViewItem(highscoresarr1[i][0], 0);
+                item1.SubItems.Add(highscoresarr1[i][1]);
+                highscores.Items.AddRange(new ListViewItem[] { item1 });
+                i++;
+                rank.Items.Add(new ListViewItem(j));
+            }
+
+            highscores.Sorting = SortOrder.Descending;
+
+            dynamicPanel.Controls.Add(rank);
             dynamicPanel.Controls.Add(highscores);
-            //dynamicPanel.Controls.Add(hslabel1);
-            //dynamicPanel.Controls.Add(hslabel2);
-
             Controls.Add(dynamicPanel);
+
+        }
+
+        //onload
+        private void Highscores_Load(object sender, EventArgs e)
+        {
+            //highscores
+            highscoresTool();
+
+
         }
 
     }

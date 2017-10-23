@@ -435,5 +435,22 @@ namespace Memory2
             //old game
             //Load_Click();
         }
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            /*
+            //new game
+            randomAanmaken();
+            if (File.Exists("spelers.xml"))
+            {
+                XmlSerializer xs = new XmlSerializer(typeof(Information));
+                FileStream read = new FileStream("spelers.xml", FileMode.Open, FileAccess.Read, FileShare.Read);
+                Information info = (Information)xs.Deserialize(read);
+                saveGame.player1name = info.player1name;
+                saveGame.player2name = info.player2name;
+            }
+            */
+            //old game
+            Load_Click();
+        }
     }
 }

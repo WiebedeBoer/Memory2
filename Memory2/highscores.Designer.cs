@@ -40,6 +40,7 @@
             this.ClientSize = new System.Drawing.Size(984, 462);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Highscores_Load);
             this.ResumeLayout(false);
         }
 
