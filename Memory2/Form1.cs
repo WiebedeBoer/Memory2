@@ -101,7 +101,7 @@ namespace Memory2
         //first clicked kaartje
         public static int FirstClicked = -1;
         //second clicked kaartje
-        public static int SecondClicked = 0;
+        public static int SecondClicked = -1;
 
         //half of total cards
         public int halfway = (Rows * Columns) / 2;
@@ -265,7 +265,7 @@ namespace Memory2
                             saveGame.TagArray[ClickedNum] = 2;
                             saveGame.TagArray[FirstClicked] = 2;
                             FirstClicked = -1;
-                            SecondClicked = 0;
+                            SecondClicked = -1;
                             ClickedNum = 0;
                             //spelers score
                             switch (playerturn)

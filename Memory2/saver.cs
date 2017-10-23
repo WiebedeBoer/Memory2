@@ -34,6 +34,7 @@ namespace Memory2
             public int playerturn;
             //zetten
             public int FirstClicked;
+            public int SecondClicked;
             //spelers score
             //player 1 score
             public int player1score;
@@ -156,11 +157,11 @@ namespace Memory2
                 Form1.saveGame.TagArray = info.TagArray;
 
                 //plaatjes raster loops
-                Plaatjes = new PictureBox[Rows * Columns];
+                Plaatjes = new PictureBox[info.Rows * info.Columns];
                 int i = 0;
-                for (int cRow = 0; cRow < Rows; cRow++)
+                for (int cRow = 0; cRow < info.Rows; cRow++)
                 {
-                    for (int cColumn = 0; cColumn < Columns; cColumn++)
+                    for (int cColumn = 0; cColumn < info.Columns; cColumn++)
                     {
                         PictureBox Box = new PictureBox();
                         //this.SuspendLayout();
@@ -172,8 +173,7 @@ namespace Memory2
                         //box naam
                         Box.Name = i.ToString();
                         //box tag
-                        Box.Tag = shuf[i];
-                        DraaiArray[i] = shuf[i];
+                        Box.Tag = info.DraaiArray[i];
                         
                         //box  size
                         Box.Size = new System.Drawing.Size(100, 100);
