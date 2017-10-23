@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
@@ -128,6 +132,7 @@ namespace Memory2
 
         }
 
+        /*
         //load game
         public void Load_Click(string savname)
         {
@@ -156,6 +161,11 @@ namespace Memory2
                 Form1.saveGame.DraaiArray = info.DraaiArray;
                 Form1.saveGame.TagArray = info.TagArray;
 
+                //kaartjes array
+                PictureBox[] Plaatjes;
+                //plaatjes raster loops
+                Plaatjes = new PictureBox[info.Rows * info.Columns];
+
                 //plaatjes raster loops
                 ///Plaatjes = new PictureBox[info.Rows * info.Columns];
                 int i = 0;
@@ -178,23 +188,21 @@ namespace Memory2
                         //box  size
                         Box.Size = new System.Drawing.Size(100, 100);
                         //aan plaates array
-                        ///Plaatjes[i] = Box;
+                        Plaatjes[i] = Box;
                         //increment voor random
                         i++;
                         //box toevoegen
-                        ///this.Controls.Add(Box);
+                        this.Controls.Add(Box);
                         //clicker
-                        ///Box.Click += Box_Click;
+                        Box.Click += Box_Click;
                         //layout kaartjes
                         ((System.ComponentModel.ISupportInitialize)(Box)).EndInit();
-                        ///this.ResumeLayout(false);
+                        this.ResumeLayout(false);
                     }
                 }
 
-
-
-
             }
+            */
             /*
             //open storage container
             IAsyncResult result = device.BeginOpenContainer("StorageDemo", null, null);
@@ -223,7 +231,10 @@ namespace Memory2
             //dispose container
             container.Dispose();
             */
+        /*
         }
+
+        */
 
     }
 }
