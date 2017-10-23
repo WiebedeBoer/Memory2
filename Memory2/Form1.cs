@@ -232,10 +232,12 @@ namespace Memory2
 
         public async void Box_Click(object sender, EventArgs e)
         {
-                if (FirstClicked != -1 && SecondClicked != -1)
+            /*
+            if (FirstClicked != -1 && SecondClicked != -1)
             {
                 return;
             }
+                */
                 //event koppelen aan box
                 PictureBox Boxje = (PictureBox)sender;
 
@@ -314,7 +316,7 @@ namespace Memory2
                             Plaatjes[ClickedNum].Image = Properties.Resources.kaartje0;
 
                             FirstClicked = -1;
-                            SecondClicked = 0;
+                            SecondClicked = -1;
                             ClickedNum = 0;
 
                         }
@@ -323,7 +325,7 @@ namespace Memory2
                     //als er nog geen kaart is omgedraaid, oftewel eerste zet in beurt van een speler
                     else
                     {
-                        //als het matched
+                        //tag van eerste zet, zetten naar 1
                         saveGame.TagArray[ClickedNum] = 1;
                         FirstClicked = ClickedNum;
                     }

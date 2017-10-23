@@ -157,7 +157,7 @@ namespace Memory2
                 Form1.saveGame.TagArray = info.TagArray;
 
                 //plaatjes raster loops
-                Plaatjes = new PictureBox[info.Rows * info.Columns];
+                ///Plaatjes = new PictureBox[info.Rows * info.Columns];
                 int i = 0;
                 for (int cRow = 0; cRow < info.Rows; cRow++)
                 {
@@ -178,16 +178,16 @@ namespace Memory2
                         //box  size
                         Box.Size = new System.Drawing.Size(100, 100);
                         //aan plaates array
-                        Plaatjes[i] = Box;
+                        ///Plaatjes[i] = Box;
                         //increment voor random
                         i++;
                         //box toevoegen
-                        this.Controls.Add(Box);
+                        ///this.Controls.Add(Box);
                         //clicker
-                        Box.Click += Box_Click;
+                        ///Box.Click += Box_Click;
                         //layout kaartjes
                         ((System.ComponentModel.ISupportInitialize)(Box)).EndInit();
-                        this.ResumeLayout(false);
+                        ///this.ResumeLayout(false);
                     }
                 }
 
