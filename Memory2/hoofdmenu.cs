@@ -131,7 +131,7 @@ namespace Memory2
         private void loadgame(object obj)
         {
             //throw new NotImplementedException();
-            Application.Run(new Form1());
+            Application.Run(new load());
         }
 
         /*

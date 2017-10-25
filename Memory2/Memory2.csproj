@@ -63,6 +63,12 @@
     <Compile Include="hoofdmenu.Designer.cs">
       <DependentUpon>hoofdmenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="load.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="load.Designer.cs">
+      <DependentUpon>load.cs</DependentUpon>
+    </Compile>
     <Compile Include="login.cs">
       <SubType>Form</SubType>
     </Compile>

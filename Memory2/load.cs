@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -24,9 +25,139 @@ namespace Memory2
         }
         */
 
+        //reset spel
+        Thread thr;
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            thr = new Thread(opennewgame);
+            thr.SetApartmentState(ApartmentState.STA);
+            thr.Start();
+        }
+
+        //open spel na reset
+        private void opennewgame(object obj)
+        {
+            //throw new NotImplementedException();
+            Application.Run(new Form1());
+        }
+        //save spel
+        private void button2_Click(object sender, EventArgs e)
+        {
+            saver.Save_Click();
+        }
+
+        //player 1 score
+        public static int player1score = 0;
+        //player 2 score
+        public static int player2score = 0;
+        //player 1 naam
+        //string player1name = login.player1name;
+        //public static string player1name = "naam1";
+        public static Information saveGame = new Information();
+        //player 2 naam
+        //string player2name = login.player2name;
+        //public static string player2name = "naam2";
+        //public static Information player2name;
+        //rijen
+        public static int Rows = 4;
+        //kolommen
+        public static int Columns = 4;
+        //spelers
+        public static int Players = 2;
+        //spelers beurt
+        public static int playerturn = 0;
+        //kaartjes array
+        PictureBox[] Plaatjes;
+        //array kaartje status, 0 = niet gedraaid, 1 = gedraaid, 2 = geraden
+        //public static int[] TagArray;
+        //array met tags kaartjes nummers 1 t/m 8
+        ///public static int[] DraaiArray;
+        //first clicked kaartje
+        public static int FirstClicked = -1;
+        //second clicked kaartje
+        public static int SecondClicked = -1;
+
+        //half of total cards
+        public int halfway = (Rows * Columns) / 2;
+
+        //class met highscores xml
+        public class Highscores
+        {
+            public static void SaveData(object obj, string filename)
+            {
+                XmlSerializer sr = new XmlSerializer(obj.GetType());
+                TextWriter writer = new StreamWriter(filename);
+                sr.Serialize(writer, obj);
+                writer.Close();
+            }
+        }
+
+        //class meet scores
+        public class Scores
+        {
+            private string naam;
+            private int score;
+
+            public string Naam
+            {
+                get { return naam; }
+                set { naam = value; }
+            }
+
+            public int Score
+            {
+                get { return score; }
+                set { score = value; }
+            }
+        }
+
+        //highscore toevoegen
+        //private void Highscore(object sender, EventArgs e)
+        private void Highscore()
+        {
+            try
+            {
+                Scores info = new Scores();
+                info.Naam = Form1.saveGame.player1name;
+                info.Score = player1score;
+                AppendData(info, "data.xml");
+                //MessageBox.Show("De score is toegevoegd");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //highscores append
+        static void AppendData(Scores obj, string filename)
+        {
+            XmlSerializer xmlser = new XmlSerializer(typeof(List<Scores>));
+            List<Scores> list = null;
+            try
+            {
+                using (Stream s = File.OpenRead(filename))
+                {
+                    list = xmlser.Deserialize(s) as List<Scores>;
+                }
+            }
+            catch
+            {
+                list = new List<Scores>();
+            }
+            list.Add(obj);
+            using (Stream s = File.OpenWrite(filename))
+            {
+                xmlser.Serialize(s, list);
+            }
+        }
+
+
 
         //load game
-        public void Load_Click(string savname)
+        //public void Load_Click(string savname)
+        public void LoadGame ()
         {
             //string savpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\memory.sav";
             //GameState gameState;
@@ -92,11 +223,153 @@ namespace Memory2
                         this.ResumeLayout(false);
                     }
                 }
+            }
+        }
 
+
+        public async void Box_Click(object sender, EventArgs e)
+        {
+
+
+
+            /*
+            if (FirstClicked != -1 && SecondClicked != -1)
+            {
+                return;
+            }
+                */
+            //event koppelen aan box
+            PictureBox Boxje = (PictureBox)sender;
+
+            //plaats zoeken in array         
+            int ClickedNum = Convert.ToInt32(Boxje.Name);
+            //image path en tag veranderen, bij wel draaien, check of het 0, of 1 of 2 is
+            if (saveGame.TagArray[ClickedNum] == 0)
+            {
+                //draai kaartje om
+                //string imgpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje" + Boxje.Tag + ".png";
+                Boxje.Image = (Image)Properties.Resources.ResourceManager.GetObject("kaartje" + Boxje.Tag);
+
+                //als er al wel een kaart is omgedraaid in een beurt, oftewel tweede zet in beurt van een speler
+                if (FirstClicked != -1)
+                {
+
+                    if (playerturn == 0)
+                    {
+                        this.label1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                        this.label1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+                        this.label2.BackColor = System.Drawing.SystemColors.Control;
+                        this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+                    }
+                    else
+                    {
+                        this.label1.BackColor = System.Drawing.SystemColors.Control;
+                        this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
+                        this.label2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                        this.label2.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+                    }
+
+                    /*
+                    //timer
+                    timer1.Stop();
+                    TimerDisplay = 7;
+                    timer1.Start();
+                    */
+
+                    //als het wel matched
+                    if (saveGame.DraaiArray[FirstClicked] == saveGame.DraaiArray[ClickedNum])
+                    {
+
+                        saveGame.TagArray[ClickedNum] = 2;
+                        saveGame.TagArray[FirstClicked] = 2;
+                        FirstClicked = -1;
+                        SecondClicked = -1;
+                        ClickedNum = 0;
+                        //spelers score
+                        switch (playerturn)
+                        {
+                            case 0:
+                                player1score = player1score + 1;
+                                break;
+                            case 1:
+                                player2score = player2score + 1;
+                                break;
+                        }
+                        //spel stop
+                        int totalscore = player1score + player2score;
+                        if (totalscore >= halfway)
+                        {
+                            //bericht spel is stop
+                            MessageBox.Show("spel is geeindigd");
+                            //opslaan in highscores
+                            Highscore();
+                        }
+
+                    }
+                    //als het niet matched
+                    else
+                    {
+                        //tags weer terug naar niet gedraaid
+                        saveGame.TagArray[ClickedNum] = 0;
+                        saveGame.TagArray[FirstClicked] = 0;
+
+                        //spelers volgende beurt
+                        if (playerturn < Players)
+                        {
+                            playerturn = playerturn + 1;
+                        }
+                        else
+                        {
+                            playerturn = 0;
+                        }
+
+                        //delay
+                        await Task.Delay(800);
+
+                        //string imgbackpath = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).ToString() + @"\placeholder\kaartje0.png";
+
+                        //draai 2 kaartjes terug
+                        Plaatjes[FirstClicked].Image = Properties.Resources.kaartje0;
+                        Plaatjes[ClickedNum].Image = Properties.Resources.kaartje0;
+
+                        FirstClicked = -1;
+                        SecondClicked = -1;
+                        ClickedNum = 0;
+
+                    }
+
+                }
+                //als er nog geen kaart is omgedraaid, oftewel eerste zet in beurt van een speler
+                else
+                {
+                    //tag van eerste zet, zetten naar 1
+                    saveGame.TagArray[ClickedNum] = 1;
+                    FirstClicked = ClickedNum;
+                }
             }
 
-
         }
+
+        private int IndexPlaatjes(PictureBox Boks)
+        {
+            int i = 0;
+            foreach (PictureBox b in Plaatjes)
+            {
+                if (b == Boks)
+                    return i;
+                i++;
+            }
+            return -1;
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            //old game
+            //Load_Click();
+            LoadGame();
+        }
+
+
 
     }
 }

@@ -6,7 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+
 
 namespace Memory2
 {
@@ -15,7 +19,75 @@ namespace Memory2
         public highscores()
         {
             InitializeComponent();
+
+
+            if (File.Exists("data.xml"))
+            {
+                DataSet ds = new DataSet();
+                ds.ReadXml("data.xml", XmlReadMode.InferTypedSchema);
+                ds.Tables[0].DefaultView.Sort = "Score DESC";
+                dataGridView1.Columns.Add("Rank", "Rank");
+                this.dataGridView1.Rows.Add("1");
+                dataGridView1.DataSource = ds.Tables[0];
+            }
+
+            /*
+            private void button1_Click(object sender, EventArgs e)
+            {
+                try
+                {
+                    Scores info = new Scores();
+                    info.Naam = textBoxNaam.Text;
+                    info.Score = int.Parse(textBoxScore.Text);
+                    AppendData(info, "data.xml");
+                    MessageBox.Show("De score is toegevoegd");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            */
+
+            /*
+            static void AppendData(Scores obj, string filename)
+            {
+                XmlSerializer xmlser = new XmlSerializer(typeof(List<Scores>));
+                List<Scores> list = null;
+                try
+                {
+                    using (Stream s = File.OpenRead(filename))
+                    {
+                        list = xmlser.Deserialize(s) as List<Scores>;
+                    }
+                }
+                catch
+                {
+                    list = new List<Scores>();
+                }
+                list.Add(obj);
+                using (Stream s = File.OpenWrite(filename))
+                {
+                    xmlser.Serialize(s, list);
+                }
+            }
+            */
+
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
 
         string[][] highscoresarr1 = new string[][] { new string[2] { "6", "Na1" }, new string[2] { "2", "Na2" }, new string[2] { "3", "Na3" }, new string[2] { "5", "Na4" } };
 
@@ -60,7 +132,9 @@ namespace Memory2
             Controls.Add(dynamicPanel);
 
         }
+        */
 
+        /*
         //onload
         private void Highscores_Load(object sender, EventArgs e)
         {
@@ -69,6 +143,8 @@ namespace Memory2
 
 
         }
+            */
 
     }
 }
+

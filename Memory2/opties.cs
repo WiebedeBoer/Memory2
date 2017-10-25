@@ -15,9 +15,18 @@ namespace Memory2
         public opties()
         {
             InitializeComponent();
+            Form1.Rows = 4;
+            Form1.Columns = 4;
+            Form1.Players = 2;
         }
-
-
+        /*
+        public static class SpelOpties
+        {
+            public static int Rows;
+            public static int Columns;
+            public static int Players;
+        }
+        /*
 
 
         /*string[,] highscoresarray = new string[4, 5] { { "Na2", "3", "2", "4", "7" }, { "Na1", "4", "2", "3", "7" }, { "Na3", "5", "1", "2", "8"}, {"Na4", "2", "1", "5", "8"} */
@@ -27,7 +36,7 @@ namespace Memory2
         int[] Na4 = new int[4] { 2, 1, 5, 8 };*/
         //string name1 = "naam 1";
 
-
+        
 
 
         private void highscoresToolStripMenuItem_Click(object sender, EventArgs e)
@@ -90,10 +99,31 @@ namespace Memory2
 
         }
 
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            Form1.Players = 2;
+        }
 
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            Form1.Players = 3;
+        }
 
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            Form1.Players = 4;
+        }
 
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            Form1.Rows = 4;
+            Form1.Columns = 4;
+        }
 
-
+        public void radioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+            Form1.Rows = 6;
+            Form1.Columns = 6;
+        }
     }
 }

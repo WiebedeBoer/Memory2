@@ -141,6 +141,80 @@ namespace Memory2
         }
         */
 
+        //class met highscores xml
+        public class Highscores
+        {
+            public static void SaveData(object obj, string filename)
+            {
+                XmlSerializer sr = new XmlSerializer(obj.GetType());
+                TextWriter writer = new StreamWriter(filename);
+                sr.Serialize(writer, obj);
+                writer.Close();
+            }
+        }
+
+        //class meet scores
+        public class Scores
+        {
+            private string naam;
+            private int score;
+
+            public string Naam
+            {
+                get { return naam; }
+                set { naam = value; }
+            }
+
+            public int Score
+            {
+                get { return score; }
+                set { score = value; }
+            }
+        }
+
+        //highscore toevoegen
+        //private void Highscore(object sender, EventArgs e)
+        private void Highscore()
+        {
+            try
+            {
+                Scores info = new Scores();
+                info.Naam = Form1.saveGame.player1name;
+                info.Score = player1score;
+                AppendData(info, "data.xml");
+                //MessageBox.Show("De score is toegevoegd");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //highscores append
+        static void AppendData(Scores obj, string filename)
+        {
+            XmlSerializer xmlser = new XmlSerializer(typeof(List<Scores>));
+            List<Scores> list = null;
+            try
+            {
+                using (Stream s = File.OpenRead(filename))
+                {
+                    list = xmlser.Deserialize(s) as List<Scores>;
+                }
+            }
+            catch
+            {
+                list = new List<Scores>();
+            }
+            list.Add(obj);
+            using (Stream s = File.OpenWrite(filename))
+            {
+                xmlser.Serialize(s, list);
+            }
+        }
+
+
+
         //Genereert kaarten in random volgorde
         private void randomAanmaken()
         {
@@ -305,6 +379,9 @@ namespace Memory2
 
         public async void Box_Click(object sender, EventArgs e)
         {
+            
+
+            
             /*
             if (FirstClicked != -1 && SecondClicked != -1)
             {
@@ -326,6 +403,22 @@ namespace Memory2
                     //als er al wel een kaart is omgedraaid in een beurt, oftewel tweede zet in beurt van een speler
                     if (FirstClicked != -1)
                     {
+
+                    if (playerturn == 0)
+                    {
+                        this.label1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                        this.label1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+                        this.label2.BackColor = System.Drawing.SystemColors.Control;
+                        this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+                    }
+                    else
+                    {
+                        this.label1.BackColor = System.Drawing.SystemColors.Control;
+                        this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
+                        this.label2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                        this.label2.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+                    }
+
                     /*
                     //timer
                     timer1.Stop();
@@ -347,18 +440,19 @@ namespace Memory2
                             {
                             case 0:
                                 player1score = player1score + 1;
-                            break;
+                                break;
                             case 1:
                                 player2score = player2score + 1;
-                            break;
+                                break;
                             }
                             //spel stop
                             int totalscore = player1score + player2score;
-                            if (totalscore >=halfway)
+                            if (totalscore >= halfway - 1)
                             {
                             //bericht spel is stop
                             MessageBox.Show("spel is geeindigd");
-                            //opslaan in hhighscores
+                            //opslaan in highscores
+                            Highscore();
                             }
 
                         }
@@ -424,6 +518,7 @@ namespace Memory2
         {
             //new game
             randomAanmaken();
+
             if (File.Exists("spelers.xml"))
             {
                 XmlSerializer xs = new XmlSerializer(typeof(Information));
