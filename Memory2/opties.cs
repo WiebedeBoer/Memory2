@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,12 +13,11 @@ namespace Memory2
 {
     public partial class opties : Form
     {
+
         public opties()
         {
             InitializeComponent();
-            Form1.Rows = 4;
-            Form1.Columns = 4;
-            Form1.Players = 2;
+
         }
         /*
         public static class SpelOpties
@@ -36,7 +36,9 @@ namespace Memory2
         int[] Na4 = new int[4] { 2, 1, 5, 8 };*/
         //string name1 = "naam 1";
 
-        
+        public static int oRows = 4;
+        public static int oColumns = 4;
+        public static int oPlayers = 2;
 
 
         private void highscoresToolStripMenuItem_Click(object sender, EventArgs e)
@@ -101,29 +103,46 @@ namespace Memory2
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            Form1.Players = 2;
+            oPlayers = 2;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            Form1.Players = 3;
+            oPlayers = 3;
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
-            Form1.Players = 4;
+            oPlayers = 4;
         }
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
-            Form1.Rows = 4;
-            Form1.Columns = 4;
+            oRows = 4;
+            oColumns = 4;
         }
 
         public void radioButton5_CheckedChanged(object sender, EventArgs e)
         {
-            Form1.Rows = 6;
-            Form1.Columns = 6;
+            oRows = 6;
+            oColumns = 6;
+        }
+
+        Thread draadje;
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            draadje = new Thread(openhoofd);
+            draadje.SetApartmentState(ApartmentState.STA);
+            draadje.Start();
+        }
+
+        private void openhoofd(object obj)
+        {
+            //throw new NotImplementedException();
+            Application.Run(new hoofdmenu());
         }
     }
 }
+
+
