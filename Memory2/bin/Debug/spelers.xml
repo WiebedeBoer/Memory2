@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Information xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Rows>0</Rows>
+  <Columns>0</Columns>
+  <Players>0</Players>
+  <player1name>i</player1name>
+  <player2name>w</player2name>
+  <playerturn>0</playerturn>
+  <FirstClicked>0</FirstClicked>
+  <SecondClicked>0</SecondClicked>
+  <player1score>0</player1score>
+  <player2score>0</player2score>
+</Information>
