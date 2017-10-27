@@ -51,6 +51,30 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="highscores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="highscores.Designer.cs">
+      <DependentUpon>highscores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="hoofdmenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="hoofdmenu.Designer.cs">
+      <DependentUpon>hoofdmenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="load.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="load.Designer.cs">
+      <DependentUpon>load.cs</DependentUpon>
+    </Compile>
+    <Compile Include="login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="login.Designer.cs">
+      <DependentUpon>login.cs</DependentUpon>
+    </Compile>
     <Compile Include="opties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +86,15 @@
     <Compile Include="saver.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="hoofdmenu.resx">
+      <DependentUpon>hoofdmenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="login.resx">
+      <DependentUpon>login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="opties.resx">
+      <DependentUpon>opties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

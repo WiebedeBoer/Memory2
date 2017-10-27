@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,12 +13,20 @@ namespace Memory2
 {
     public partial class opties : Form
     {
+
         public opties()
         {
             InitializeComponent();
+
         }
-
-
+        /*
+        public static class SpelOpties
+        {
+            public static int Rows;
+            public static int Columns;
+            public static int Players;
+        }
+        /*
 
 
         /*string[,] highscoresarray = new string[4, 5] { { "Na2", "3", "2", "4", "7" }, { "Na1", "4", "2", "3", "7" }, { "Na3", "5", "1", "2", "8"}, {"Na4", "2", "1", "5", "8"} */
@@ -25,10 +34,12 @@ namespace Memory2
         int[] Na2 = new int[4] { 4, 2, 3, 7 };
         int[] Na3 = new int[4] { 5, 1, 2, 8 };
         int[] Na4 = new int[4] { 2, 1, 5, 8 };*/
-        string name1 = "naam 1";
+        //string name1 = "naam 1";
 
-
-
+        public static int oRows = 4;
+        public static int oColumns = 4;
+        public static int oPlayers = 2;
+        public static string oThemaString = @"\thema\spongebob\kaartje";
 
         private void highscoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -90,10 +101,58 @@ namespace Memory2
 
         }
 
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            oPlayers = 2;
+        }
 
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            oPlayers = 3;
+        }
 
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            oPlayers = 4;
+        }
 
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            oRows = 4;
+            oColumns = 4;
+        }
 
+        public void radioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+            oRows = 6;
+            oColumns = 6;
+        }
 
+        Thread draadje;
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            draadje = new Thread(openhoofd);
+            draadje.SetApartmentState(ApartmentState.STA);
+            draadje.Start();
+        }
+
+        private void openhoofd(object obj)
+        {
+            //throw new NotImplementedException();
+            Application.Run(new hoofdmenu());
+        }
+
+        private void radioButton6_CheckedChanged(object sender, EventArgs e)
+        {
+            oThemaString = @"\thema\spongebob\kaartje";
+        }
+
+        private void radioButton7_CheckedChanged(object sender, EventArgs e)
+        {
+            oThemaString = @"\thema\adventuretime\kaartje";
+        }
     }
 }
+
+
