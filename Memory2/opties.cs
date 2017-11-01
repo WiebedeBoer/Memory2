@@ -39,7 +39,8 @@ namespace Memory2
         public static int oRows = 4;
         public static int oColumns = 4;
         public static int oPlayers = 2;
-
+        public static string oThemaString = @"\thema\spongebob\kaartje";
+        public static string oThemaBackground = "spongebob";
 
         private void highscoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -141,6 +142,19 @@ namespace Memory2
         {
             //throw new NotImplementedException();
             Application.Run(new hoofdmenu());
+        }
+
+        private void radioButton6_CheckedChanged(object sender, EventArgs e)
+        {
+            oThemaString = @"\thema\spongebob\kaartje";
+            oThemaBackground = "spongebob";
+        }
+
+        private void radioButton7_CheckedChanged(object sender, EventArgs e)
+        {
+            oThemaString = @"\thema\adventuretime\kaartje";
+            oThemaBackground = "adventuretime";
+
         }
     }
 }

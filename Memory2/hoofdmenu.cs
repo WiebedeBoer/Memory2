@@ -18,6 +18,8 @@ namespace Memory2
         public hoofdmenu()
         {
             InitializeComponent();
+            this.BackgroundImage = Image.FromFile(Environment.CurrentDirectory + @"\..\..\thema\hoofdmenu\HoofdmenuBackground.png");
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void button1_Click(object sender, EventArgs e)

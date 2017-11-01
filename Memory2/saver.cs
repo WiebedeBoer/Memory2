@@ -26,7 +26,9 @@ namespace Memory2
             public int Rows;
             public int Columns;
             //thema
-
+            public string themePath;
+            //thema achtergrond
+            public string themeBackground;
             //aantal spelers
             public int Players;
             //spelers namen
@@ -34,6 +36,10 @@ namespace Memory2
             public string player1name;
             //player 2 naam
             public string player2name;
+            //player 3 naam
+            public string player3name;
+            //player 4 naaam
+            public string player4name;
             //spelers beurt
             public int playerturn;
             //zetten
@@ -44,6 +50,10 @@ namespace Memory2
             public int player1score;
             //player 2 score
             public int player2score;
+            //player 3 score
+            public int player3score;
+            //player 4 score
+            public int player4score;
             //kaartjes posities in raster         
             public int[] DraaiArray;
             //kaartjes gedraaid, niet gedraaid, geraden
@@ -93,6 +103,9 @@ namespace Memory2
                 info.TagArray = Form1.saveGame.TagArray;
                 */
                 SaveXML.SaveData(info, "memory.sav");
+                /* https://msdn.microsoft.com/nl-nl/library/system.io.file.writeallbytes(v=vs.110).aspx */
+                //File.WriteAllBytes (savpath, SaveData);
+                //File.Encrypt(savpath);
             }
             catch (Exception ex)
             {

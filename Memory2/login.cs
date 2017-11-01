@@ -19,6 +19,12 @@ namespace Memory2
         public login()
         {
             InitializeComponent();
+
+            //Hiermee haalt het spel op hoeveel spelers hun naam kunnen invullen bij de login
+            label3.Enabled = opties.oPlayers > 2;
+            textBox3.Enabled = opties.oPlayers > 2;
+            label4.Enabled = opties.oPlayers > 3;
+            textBox4.Enabled = opties.oPlayers > 3;
         }
 
         public class SaveXML
@@ -48,12 +54,34 @@ namespace Memory2
             //player 2 naam
             string player2name = textBox2.Text;
 
+            if (opties.oPlayers ==3)
+            {
+                string player3name = textBox3.Text;
+            }
+            else if (opties.oPlayers ==4)
+            {
+                string player3name = textBox3.Text;
+                string player4name = textBox4.Text;
+            }
+
+
             try
             {
                 Information info = Form1.saveGame;
+                info.Players = opties.oPlayers;
                 info.player1name = textBox1.Text;
                 info.player2name = textBox2.Text;
-               
+
+                if (opties.oPlayers == 3)
+                {
+                    info.player3name = textBox3.Text;
+                }
+                else if (opties.oPlayers == 4)
+                {
+                    info.player3name = textBox3.Text;
+                    info.player4name = textBox4.Text;
+                }
+
                 SaveXML.SaveData(info, "spelers.xml");
             }
             catch (Exception ex)

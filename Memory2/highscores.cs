@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
@@ -16,9 +17,28 @@ namespace Memory2
 {
     public partial class highscores : Form
     {
+
+        Thread thr;
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            thr = new Thread(opennewgame);
+            thr.SetApartmentState(ApartmentState.STA);
+            thr.Start();
+        }
+
+        private void opennewgame(object obj)
+        {
+            //throw new NotImplementedException();
+            Application.Run(new hoofdmenu());
+        }
+
         public highscores()
         {
             InitializeComponent();
+
+            int rankcounter = 1;
+            string rankdisplay = Convert.ToString(rankcounter);
 
 
             if (File.Exists("data.xml"))
@@ -29,6 +49,21 @@ namespace Memory2
                 dataGridView1.Columns.Add("Rank", "Rank");
                 this.dataGridView1.Rows.Add("1");
                 dataGridView1.DataSource = ds.Tables[0];
+                dataGridView1.Location = new Point(30, 0);
+                dataGridView1.Size = new Size(150, (20 * (dataGridView1.RowCount + 1)) + 3);
+
+                listView1.Location = new Point(0, 0);
+                listView1.Size = new Size(25, (20 * (dataGridView1.RowCount + 1)) + 3);
+                listView1.Columns.Add("#");
+                listView1.View = View.Details;
+                listView1.Scrollable = false;
+
+                for (int rowc = 0; rowc < dataGridView1.Rows.Count; rowc++)
+                {
+                    listView1.Items.Add(new ListViewItem(rankdisplay));
+                    rankcounter++;
+                    rankdisplay = Convert.ToString(rankcounter);
+                }
             }
 
             /*
